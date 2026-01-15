@@ -1,0 +1,41 @@
+﻿<Page x:Class="AppTkani.Pages.LoginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AppTkani.Pages"
+      xmlns:easy="clr-namespace:EasyCaptcha.Wpf;assembly=EasyCaptcha.Wpf"
+      mc:Ignorable="d" 
+      d:DesignHeight="550" d:DesignWidth="1000"
+      Title="Модуль Вход">
+
+    <Grid>
+        <TextBlock FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10" FontFamily="ComicSans" Height="50"/>
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Логин" FontSize="24" Grid.Row="0" Grid.Column="0" TextAlignment="Right"/>
+            <TextBlock Text="Пароль" FontSize="24" Grid.Row="1" Grid.Column="0" TextAlignment="Right"/>
+            <TextBox Name="LoginInput" Grid.Row="0" Grid.Column="1" Width="300" Height="30" FontSize="24"/>
+            <PasswordBox Name="PasswordBox" Grid.Row="1" Grid.Column="1" Width="300" Height="30" FontSize="24"/>
+            <CheckBox Name="AsGuestCheckBox" Content="Войти как гость" Grid.Row="2" Grid.Column="1" FontSize="24" Height="30"/>
+
+            <StackPanel Name="CaptchaPanel" Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" Visibility="Collapsed" HorizontalAlignment="Center" Margin="15">
+                <TextBox Name="CaptchaInput" Grid.Row="3" Grid.Column="0" Width="100" Height="50" FontSize="24"/>
+                <easy:Captcha Name="CaptchaWidget" Width="100" Height="50" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center"/>
+            </StackPanel>
+            
+
+            <Button Name="LoginBtn" Content="Войти" Grid.Row="4" Grid.ColumnSpan="2" Width="100" Height="40" FontSize="24" Click="LoginBtn_Click"/>
+        </Grid>
+    </Grid>
+</Page>

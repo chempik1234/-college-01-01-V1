@@ -1,0 +1,26 @@
+﻿<Application x:Class="AppTkani.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:AppTkani"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="SecondaryDanis">
+                <SolidColorBrush.Color>
+                    <Color R="118" G="227" B="131" A="255"/>
+                </SolidColorBrush.Color>
+            </SolidColorBrush>
+            <SolidColorBrush x:Key="AccentDanis">
+                <SolidColorBrush.Color>
+                    <Color R="73" G="140" B="81" A="255"/>
+                </SolidColorBrush.Color>
+            </SolidColorBrush>
+            <Style TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="Background" Value="{StaticResource AccentDanis}"/>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
