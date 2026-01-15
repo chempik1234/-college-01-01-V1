@@ -7,12 +7,20 @@
         mc:Ignorable="d"
         Icon="/Resources/logo.png"
 
-        Title="ООО Ткани" Height="600" Width="1000" MinHeight="400" MaxHeight="1080" MinWidth="400" MaxWidth="1920">
+        Title="ООО Ткани" Height="700" Width="1300" MinHeight="480" MaxHeight="1080" MinWidth="640" MaxWidth="1920">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="70"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="0 15 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="400"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Вход в другую учётную запись" Name="GoToLoginBtn" Click="GoToLoginBtn_Click" FontSize="24" HorizontalAlignment="Left" Margin="10 0 0 0" Padding="5" Visibility="Collapsed"/>
+            <TextBlock Name="FullNameText" Text="{Binding FullName}" FontSize="24" Grid.Column="1" TextAlignment="Right" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="0 0 10 0"/>
+        </Grid>
         <Frame Grid.Row="1" Name="MainFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

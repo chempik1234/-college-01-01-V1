@@ -21,6 +21,9 @@
             <Style TargetType="Button">
                 <Setter Property="Background" Value="{StaticResource AccentDanis}"/>
             </Style>
+            <Style TargetType="ComboBox">
+                <Setter Property="Background" Value="{StaticResource SecondaryDanis}"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

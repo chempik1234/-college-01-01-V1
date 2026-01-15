@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,19 +27,26 @@ namespace AppTkani.DataModel
         public string? ProductUnit { get; set; }
         public int ProductDiscountMax { get; set; }
 
-        public ImageSource PhotoPath2 { get { 
-                return new BitmapImage(new Uri(SingletonManager.PhotoPathDirectory + ProductPhoto, UriKind.Relative));
-            } 
-        }
-
-		public Uri PhotoPath
+		public ImageSource? PhotoPath
 		{
 			get
 			{
-				return new Uri(SingletonManager.PhotoPathDirectory + ProductPhoto, UriKind.Relative);
+                if (string.IsNullOrEmpty(ProductPhoto))
+                {
+                    return SingletonManager.AltImage;
+                }
+
+				var img = new BitmapImage(new Uri(SingletonManager.PhotoPathDirectory + ProductPhoto, UriKind.Relative));
+				if (img != null && img.PixelHeight > 0)
+                {
+                    return img;
+                }
+                return SingletonManager.AltImage;
 			}
 		}
 
-		public double ProductCostActual { get { return ProductCost * (100 -  ProductDiscountAmount) / 100; } }
+		public string ProductCostActual { get { return $"{ProductCostActualNumber} Р"; } }
+
+        public double ProductCostActualNumber { get { return ProductCost * (100 - ProductDiscountAmount) / 100; } }
 	}
 }

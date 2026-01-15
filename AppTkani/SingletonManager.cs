@@ -1,5 +1,9 @@
 ﻿using AppTkani.DataModel;
+using System.ComponentModel;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace AppTkani
 {
@@ -15,10 +19,50 @@ namespace AppTkani
             }
         }
 
-		public static bool AsGuest = false;
+		public static bool asGuest;
+		public static bool AsGuest { get => asGuest; set
+			{
+				asGuest = value;
+				UpdateFullName();
+			}
+		}
 
-		public static User? User { get; internal set; }
+		private static User? user;
+		public static User? User { get => user; set
+			{
+				user = value;
+				UpdateFullName();
+			}
+		}
+
+		private static void UpdateFullName()
+		{
+			MainWindow!.UpdateProperty(nameof(MainWindow.FullName));
+		}
+
+		public static string FullName { get
+			{
+                if (AsGuest)
+					return "<гость>";
+                if (User == null)
+					return "Входа не было";
+				return $"{User.UserSurname} {User.UserName} {User.UserPatronymic}";
+			} }
 
 		public static string PhotoPathDirectory = "../../../Media/Product/";
+
+		private static ImageSource? altImage;
+
+		public static ImageSource? AltImage { get
+			{
+				if (altImage == null)
+				{
+					var img = new BitmapImage(new Uri("/Resources/picture.png", UriKind.Relative));
+					altImage = img;
+				}
+				return altImage;
+			} }
+
+		public static MainWindow? MainWindow { get; set; }
 	}
 }

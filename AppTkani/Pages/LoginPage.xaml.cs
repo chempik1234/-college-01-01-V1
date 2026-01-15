@@ -96,7 +96,8 @@ namespace AppTkani.Pages
 			}
 
 			MessageBox.Show("Вы успешно вошли!", "Вход");
-			SingletonManager.MainFrame!.Navigate(new ProductsPage());
+			SingletonManager.MainWindow?.ShowLoginButton();
+			SingletonManager.MainFrame?.Navigate(new ProductsPage());
 		}
 
 		private void OnFailedLogin()
