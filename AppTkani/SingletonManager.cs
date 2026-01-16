@@ -64,5 +64,28 @@ namespace AppTkani
 			} }
 
 		public static MainWindow? MainWindow { get; set; }
+
+		public static bool UserIsAdmin()
+		{
+			if (SingletonManager.User == null || SingletonManager.AsGuest)
+			{
+				return false;
+			}
+			try
+			{
+				using (var db = new DanisContext())
+				{
+					var role = db.Role.FirstOrDefault(p => p.RoleId == SingletonManager.User.UserRole);
+					if (role == null)
+						return false;
+					return role.RoleName.ToLower() == "администратор";
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Ошибка проверки роли пользователя!\n\nПодробнее: " + ex.Message, "Ошибка БД");
+			}
+			return false;
+		}
 	}
 }

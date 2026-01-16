@@ -20,6 +20,24 @@
             </Style>
             <Style TargetType="Button">
                 <Setter Property="Background" Value="{StaticResource AccentDanis}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="5" Padding="15 5" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                                <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          TextElement.FontWeight="{TemplateBinding FontWeight}"
+                                                  TextElement.FontFamily="Comic Sans MS"
+                                                  TextElement.FontSize="{TemplateBinding FontSize}"
+                                                  TextElement.Foreground="{TemplateBinding Foreground}"/>
+
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="TextElement.FontFamily" Value="Comic Sans MS"/>
             </Style>
             <Style TargetType="ComboBox">
                 <Setter Property="Background" Value="{StaticResource SecondaryDanis}"/>

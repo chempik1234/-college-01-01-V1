@@ -1,27 +1,14 @@
 ﻿using AppTkani.DataModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Automation;
-using System.Windows.Automation.Provider;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AppTkani.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для ProductsPage.xaml
-    /// </summary>
-    public partial class ProductsPage : Page
+	/// <summary>
+	/// Логика взаимодействия для ProductsPage.xaml
+	/// </summary>
+	public partial class ProductsPage : Page
     {
 		string searchText = string.Empty;
 		string manufacturer = string.Empty;
@@ -37,6 +24,11 @@ namespace AppTkani.Pages
         public ProductsPage()
         {
             InitializeComponent();
+
+			if (!SingletonManager.UserIsAdmin())
+				AdminToolbar.Visibility = Visibility.Collapsed;
+			else
+				AdminToolbar.Visibility = Visibility.Visible;
 
 			var manufacturers = GetManufacturers();
 			manufacturers.Insert(0, "Все производители");
@@ -58,7 +50,7 @@ namespace AppTkani.Pages
 				using (var db = new DanisContext())
 				{
 					products = db.Product.Where(condition).ToList();
-					AmountText.Text = products.Count + " / " + db.Product.Count();
+					UpdateAmountText(db);
 				}
 			}
 			catch (Exception ex)
@@ -149,6 +141,59 @@ namespace AppTkani.Pages
 			}
 
 			return list;
+		}
+
+		private void DeleteButton_Click(object sender, RoutedEventArgs e)
+		{
+			Product? selectedProduct = SelectedProduct();
+			if (selectedProduct == null)
+			{
+				MessageBox.Show("Вы не выбрали товар для удаления", "Удаление товара");
+				return;
+			}
+
+			try
+			{
+				using (var db = new DanisContext())
+				{
+					if (db.OrderProduct.FirstOrDefault(p => p.ProductArticleNumber == selectedProduct.ProductArticleNumber) == null)
+					{
+						db.Product.Remove(selectedProduct);
+						db.SaveChanges();
+						products.Remove(selectedProduct);
+						RefreshLV();
+						UpdateAmountText(db);
+						MessageBox.Show($"Товар {selectedProduct.ProductArticleNumber} удалён!", "Удаление товара");
+					} else
+					{
+						MessageBox.Show("Товар присутствует в заказе - удалить нельзя.", "Удаление товара");
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Ошибка удаления товара!\n\nПодробнее: " + ex.Message, "Ошибка БД");
+			}
+		}
+
+		private void EditButton_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void AddButton_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void UpdateAmountText(DanisContext db)
+		{
+			AmountText.Text = products.Count + " / " + db.Product.Count();
+		}
+
+		private Product? SelectedProduct()
+		{
+			return ProductsLV.SelectedItem as Product;
 		}
 	}
 }
