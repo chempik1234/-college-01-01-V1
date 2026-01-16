@@ -60,13 +60,14 @@
                                 <Border Grid.Column="1" Background="White" Margin="10" Padding="5 0 0 0" HorizontalAlignment="Stretch">
                                     <StackPanel Orientation="Vertical">
                                         <TextBlock FontWeight="Bold" Text="{Binding ProductName}" FontSize="24"/>
-                                        <TextBlock FontWeight="SemiBold" Text="{Binding ProductArticleNumber}" FontSize="22" Foreground="DarkRed"/>
+                                    <TextBlock Text="{Binding ProductCategory}" FontSize="20" Foreground="{StaticResource AccentDanis}"/>
+                                    <TextBlock FontWeight="SemiBold" Text="{Binding ProductArticleNumber}" FontSize="22" Foreground="DarkRed"/>
                                         <TextBlock FontWeight="Normal" TextWrapping="Wrap" Text="{Binding ProductDescription}" FontSize="20"/>
-                                        <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
-                                            <TextBlock FontWeight="Normal" Text="Производитель:" FontSize="20" Margin="0 0 10 0"/>
-                                            <TextBlock FontWeight="Normal" Text="{Binding ProductManufacturer}" FontSize="20"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
+                                    <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
+                                        <TextBlock FontWeight="Normal" Text="Производитель:" FontSize="20" Margin="0 0 10 0"/>
+                                        <TextBlock FontWeight="Normal" Text="{Binding ProductManufacturer}" FontSize="20"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
                                             <TextBlock FontWeight="Normal" Text="Цена:" FontSize="20" Margin="0 0 10 0"/>
                                             <TextBlock FontWeight="Normal" Text="{Binding ProductCostActual}" FontSize="35" Foreground="{StaticResource AccentDanis}"/>
                                         </StackPanel>

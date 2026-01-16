@@ -1,20 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace AppTkani.DataModel
 {
-	[PrimaryKey("ProductArticleNumber")]
+	[PrimaryKey("Id")]
 	public class Product
     {
-        
+        public int? Id { get; set; }
         public string? ProductArticleNumber { get; set; }
         public string? ProductName { get; set; }
         public string? ProductDescription { get; set; }
@@ -36,10 +29,16 @@ namespace AppTkani.DataModel
                     return SingletonManager.AltImage;
                 }
 
-				var img = new BitmapImage(new Uri(SingletonManager.PhotoPathDirectory + ProductPhoto, UriKind.Relative));
+				BitmapImage img = new BitmapImage();
+				img.BeginInit();
+                img.UriSource = new Uri(SingletonManager.PhotoPathDirectory + ProductPhoto, UriKind.Relative);
+				img.CacheOption = BitmapCacheOption.OnLoad;
+                img.EndInit();
+                img.Freeze();
+
 				if (img != null && img.PixelHeight > 0)
-                {
-                    return img;
+				{
+					return img;
                 }
                 return SingletonManager.AltImage;
 			}

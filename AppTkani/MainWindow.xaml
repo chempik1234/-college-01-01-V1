@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AppTkani"
         mc:Ignorable="d"
-        Icon="/Resources/logo.png"
 
         Title="ООО Ткани" Height="700" Width="1300" MinHeight="480" MaxHeight="1080" MinWidth="640" MaxWidth="1920">
+    <!-- Icon="/Resources/logo.png" -->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>

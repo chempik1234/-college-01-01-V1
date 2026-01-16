@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace AppTkani.DataModel
 {
-	[PrimaryKey("OrderID", "ProductArticleNumber")]
+	[PrimaryKey("OrderID", "ProductId")]
 	public class OrderProduct
 	{
 		public int OrderID { get; set; }
-		public string? ProductArticleNumber { get; set; }
+		public int ProductId { get; set; }
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using AppTkani.DataModel;
+using System.Collections;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -86,6 +87,44 @@ namespace AppTkani
 				MessageBox.Show("Ошибка проверки роли пользователя!\n\nПодробнее: " + ex.Message, "Ошибка БД");
 			}
 			return false;
+		}
+
+		internal static List<string> GetManufacturers()
+		{
+			var list = new List<string>();
+
+			try
+			{
+				using (var db = new DanisContext())
+				{
+					list = db.Product.Select(p => p.ProductManufacturer ?? string.Empty).Distinct().ToList();
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Ошибка обновления списка производителей!\n\nПодробнее: " + ex.Message, "Ошибка БД");
+			}
+
+			return list;
+		}
+
+		internal static List<string> GetCategories()
+		{
+			var list = new List<string>();
+
+			try
+			{
+				using (var db = new DanisContext())
+				{
+					list = db.Product.Select(p => p.ProductCategory ?? string.Empty).Distinct().ToList();
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Ошибка обновления списка категорий!\n\nПодробнее: " + ex.Message, "Ошибка БД");
+			}
+
+			return list;
 		}
 	}
 }

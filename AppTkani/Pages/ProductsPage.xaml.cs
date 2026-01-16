@@ -1,6 +1,5 @@
 ﻿using AppTkani.DataModel;
 using System.Windows;
-using System.Windows.Automation;
 using System.Windows.Controls;
 
 namespace AppTkani.Pages
@@ -30,7 +29,7 @@ namespace AppTkani.Pages
 			else
 				AdminToolbar.Visibility = Visibility.Visible;
 
-			var manufacturers = GetManufacturers();
+			var manufacturers = SingletonManager.GetManufacturers();
 			manufacturers.Insert(0, "Все производители");
 			ManufacturerDropDown.ItemsSource = manufacturers;
 			ManufacturerDropDown.SelectedIndex = 0;
@@ -124,25 +123,6 @@ namespace AppTkani.Pages
 			);
 		}
 
-		private List<string> GetManufacturers()
-		{
-			var list = new List<string>();
-
-			try
-			{
-				using (var db = new DanisContext())
-				{
-					list = db.Product.Select(p => p.ProductManufacturer ?? string.Empty).Distinct().ToList();
-				}
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show("Ошибка обновления списка товаров!\n\nПодробнее: " + ex.Message, "Ошибка БД");
-			}
-
-			return list;
-		}
-
 		private void DeleteButton_Click(object sender, RoutedEventArgs e)
 		{
 			Product? selectedProduct = SelectedProduct();
@@ -156,7 +136,7 @@ namespace AppTkani.Pages
 			{
 				using (var db = new DanisContext())
 				{
-					if (db.OrderProduct.FirstOrDefault(p => p.ProductArticleNumber == selectedProduct.ProductArticleNumber) == null)
+					if (db.OrderProduct.FirstOrDefault(p => p.ProductId == selectedProduct.Id) == null)
 					{
 						db.Product.Remove(selectedProduct);
 						db.SaveChanges();
@@ -178,12 +158,16 @@ namespace AppTkani.Pages
 
 		private void EditButton_Click(object sender, RoutedEventArgs e)
 		{
-
+			var product = SelectedProduct();
+			if (product != null)
+			{
+				SingletonManager.Navigate(new ProductForm(product));
+			}
 		}
 
 		private void AddButton_Click(object sender, RoutedEventArgs e)
 		{
-
+			SingletonManager.Navigate(new ProductForm(null));
 		}
 
 		private void UpdateAmountText(DanisContext db)
@@ -194,6 +178,11 @@ namespace AppTkani.Pages
 		private Product? SelectedProduct()
 		{
 			return ProductsLV.SelectedItem as Product;
+		}
+
+		public void UpdateParent(object sender)
+		{
+			ApplyAllFilters();
 		}
 	}
 }
