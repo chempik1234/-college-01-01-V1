@@ -39,6 +39,8 @@ git clone https://github.com/chempik1234/-college-01-01-V1
 cd -college-01-01-V1
 
 docker compose up -d
+
+dotnet build -c Release
 ```
 3. Перейдите в проводник в эту самую директорию. Перейдите в `AppTkani -> bin -> Release`
 4. Запустите программу (.exe файл)
